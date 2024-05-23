@@ -2,7 +2,9 @@
 
 import Euterpea
 
-beginner = playDev 2 $ line [c 4 qn, c 4 qn, g 4 qn, g 4 qn, a 4 qn, a 4 qn, g 4 hn]
+n x = x 4 qn
+
+beginner = playDev 2 $ line (map n [c, c, g, g, a, a, g])
 
 main = do
   beginner
