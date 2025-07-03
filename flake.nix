@@ -1,5 +1,22 @@
 {
-  inputs.configuration.url = "github:ivandimitrov8080/configuration.nix";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs =
-    inputs: inputs.configuration.inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
+    { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          (ghc.withPackages (
+            hkgs: with hkgs; [
+              Euterpea
+            ]
+          ))
+          timidity
+        ];
+      };
+    };
 }
