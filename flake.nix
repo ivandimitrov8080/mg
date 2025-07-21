@@ -38,6 +38,7 @@
               tidal
             ]
           ))
+          supercollider-with-plugins
           timidity
           nvim
         ];
