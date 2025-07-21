@@ -20,5 +20,5 @@ metronome bpm beatsPerBar =
   tempo (bpm / 120) $ line (cycle [bar beatsPerBar])  -- repeat bar forever
 
 -- Run: 4/4 at 100 BPM
-main = playDev 2 $ metronome 80 4
+main = playDev 2 $ metronome 100 4
 
