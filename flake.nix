@@ -13,6 +13,7 @@
           (ghc.withPackages (
             hkgs: with hkgs; [
               Euterpea
+              tidal
             ]
           ))
           timidity
