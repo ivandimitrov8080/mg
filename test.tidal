@@ -1,3 +1,16 @@
 hush
 
-d1 $ n "c'maj e'min" # s "supermandolin"
+do
+  resetCycles
+  d1 $ s "bd*4"
+  d2 $ s "~ hh ~ hh*2"
+
+d1 $ n ("c e f" |+ "<'maj 'min>") # s "supermandolin"
+
+d1 $ n "c a f e"
+  # sound "supermandolin"
+
+d1 $ chunk 4 (|- note 5) $ jux rev $ 
+  arp "<pinkyup down thumbup up>" $ n "<c'maj'4 e4'min'8 f4'maj'4>"
+  # sound "supermandolin"
+  # sustain 2 # room 0.3 # sz 0.9
