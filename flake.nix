@@ -18,15 +18,50 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      vim-tidal = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-tidal";
+        src = pkgs.fetchFromGitHub {
+          owner = "tidalcycles";
+          repo = "vim-tidal";
+          rev = "e440fe5bdfe07f805e21e6872099685d38e8b761";
+          sha256 = "sha256-8gyk17YLeKpLpz3LRtxiwbpsIbZka9bb63nK5/9IUoA=";
+        };
+      };
       nvim = (nixvim.legacyPackages.${system}.makeNixvim config.nixvimConfigs.default).extend {
         package = neovim-nightly-overlay.packages.${system}.default;
+        keymaps = [
+          {
+            mode = [
+              "n"
+              "v"
+            ];
+            key = "<leader>th";
+            action = "<cmd>TidalHush<cr>";
+            options = {
+              desc = "Hush tidal";
+            };
+          }
+          {
+            mode = [
+              "n"
+              "v"
+            ];
+            key = "<leader>ts";
+            action = ":TidalSend<cr>";
+            options = {
+              desc = "Send to tidal";
+            };
+          }
+        ];
         plugins = {
+          auto-session.enable = pkgs.lib.mkForce false;
           lsp.servers = {
             hls.enable = true;
             hls.installGhc = false;
           };
           haskell-scope-highlighting.enable = true;
         };
+        extraPlugins = [ vim-tidal ];
       };
     in
     {
